@@ -8,6 +8,7 @@ import kotlin.test.*
 
 class MissionTest {
     @Test fun shouldThrowABadConfigurationExceptionIf2LinesArentGiven() {
+        val mars = Mars.from("2 2")
         val inputs =
             sequenceOf(
                 listOf(),
@@ -15,7 +16,7 @@ class MissionTest {
                 listOf("", "", ""),
             )
         inputs.forEach {
-            val exception = assertFailsWith<BadConfigurationException> { Mission.from(it) }
+            val exception = assertFailsWith<BadConfigurationException> { Mission.from(missionConfig = it, mars = mars) }
             assertEquals(
                 expected = "A bad configuration has been provided for Mission: `Incorrect number of inputs given`",
                 actual = exception.message,
@@ -24,6 +25,7 @@ class MissionTest {
     }
 
     @Test fun shouldThrowABadConfigurationExceptionIfRobotConfigIsNotCorrect() {
+        val mars = Mars.from("2 2")
         val inputs =
             sequenceOf(
                 listOf("", ""),
@@ -35,7 +37,7 @@ class MissionTest {
                 listOf("1 1 A", ""),
             )
         inputs.forEach {
-            val exception = assertFailsWith<BadConfigurationException> { Mission.from(it) }
+            val exception = assertFailsWith<BadConfigurationException> { Mission.from(missionConfig = it, mars = mars) }
             assertEquals(
                 expected = "A bad configuration has been provided for Robot: `${it[0]}`",
                 actual = exception.message,
@@ -44,6 +46,7 @@ class MissionTest {
     }
 
     @Test fun shouldThrowABadConfigurationExceptionIfInstructionsAreNotValid() {
+        val mars = Mars.from("2 2")
         val inputs =
             sequenceOf(
                 listOf("1 1 N", "A"),
@@ -52,7 +55,7 @@ class MissionTest {
                 listOf("1 1 N", "FAR"),
             )
         inputs.forEach {
-            val exception = assertFailsWith<BadConfigurationException> { Mission.from(it) }
+            val exception = assertFailsWith<BadConfigurationException> { Mission.from(missionConfig = it, mars = mars) }
             assertEquals(
                 expected = "A bad configuration has been provided for Instructions: `${it[1]}`",
                 actual = exception.message,
@@ -61,9 +64,11 @@ class MissionTest {
     }
 
     @Test fun shouldReturnARobotAndInstructions() {
-        val mission = Mission.from(listOf("1 1 N", "FRL"))
-        assertEquals(expected = Location(1, 1), actual = mission.robot.location)
-        assertEquals(expected = Orientation.NORTH, actual = mission.robot.orientation)
+        val mars = Mars.from("2 2")
+        val mission = Mission.from(missionConfig = listOf("1 1 N", "FRL"), mars = mars)
+        val outcome = Mission.outcome(mission = mission, mars = mars)
+        assertEquals(expected = Location(1, 1), actual = outcome.robot.location)
+        assertEquals(expected = Orientation.NORTH, actual = outcome.robot.orientation)
         assertEquals(
             expected =
                 listOf(
@@ -76,10 +81,9 @@ class MissionTest {
     }
 
     @Test fun shouldThrowAMissedPlanetExceptionIfLandingOutsideOfMarsBounds() {
-        val mission = Mission.from(listOf("2 2 N", ""))
         val exception =
             assertFailsWith<MissedPlanetException> {
-                mission.execute(Mars.from("1 1"))
+                Mission.from(missionConfig = listOf("2 2 N", ""), mars = Mars.from("1 1"))
             }
         assertEquals(expected = "Robot landed off planet at: 2 2", actual = exception.message)
     }

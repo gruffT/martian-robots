@@ -17,6 +17,7 @@ class EarthTest {
         0 3 W
         LLFFFLFLFL
     """
+    private val mars = Mars.from("5 3")
 
     @Test fun shouldThrowBadConfigurationExceptionIfMissionDetailsEmpty() {
         val exception =
@@ -41,7 +42,7 @@ class EarthTest {
         val exception =
             assertFailsWith<BadConfigurationException>(
                 block = {
-                    Earth.missions("    ")
+                    Earth.missions(missionDetails = "    ", mars = mars)
                 },
             )
         assertEquals(expected = "A bad configuration has been provided for Missions: `No missions specified`", actual = exception.message)
@@ -51,7 +52,7 @@ class EarthTest {
         val exception =
             assertFailsWith<BadConfigurationException>(
                 block = {
-                    Earth.missions("1 2\n")
+                    Earth.missions(missionDetails = "1 2\n", mars = mars)
                 },
             )
         assertEquals(expected = "A bad configuration has been provided for Missions: `No missions specified`", actual = exception.message)
@@ -60,14 +61,16 @@ class EarthTest {
     @Test fun shouldReturnMissions() {
         val missions =
             Earth.missions(
-                """
-                1 1
-                0 0 N
-                RLF
-                
-                1 1 S
-                FRF
-                """.trimIndent(),
+                missionDetails =
+                    """
+                    1 1
+                    0 0 N
+                    RLF
+                    
+                    1 1 S
+                    FRF
+                    """.trimIndent(),
+                mars = mars,
             )
         assertTrue { missions.size == 2 }
     }
@@ -77,7 +80,7 @@ class EarthTest {
         val exception =
             assertFailsWith<BadConfigurationException>(
                 block = {
-                    Earth.missions("")
+                    Earth.missions(missionDetails = "", mars = mars)
                 },
             )
         assertEquals(
@@ -92,10 +95,12 @@ class EarthTest {
             assertFailsWith<BadConfigurationException>(
                 block = {
                     Earth.missions(
-                        """
-                        1 1
-                        RLF
-                        """.trimIndent(),
+                        missionDetails =
+                            """
+                            1 1
+                            RLF
+                            """.trimIndent(),
+                        mars = mars,
                     )
                 },
             )
@@ -111,12 +116,14 @@ class EarthTest {
             assertFailsWith<BadConfigurationException>(
                 block = {
                     Earth.missions(
-                        """
-                        1 1
-                        1 1 E
-                        FRL
-                        2 2 S
-                        """.trimIndent(),
+                        missionDetails =
+                            """
+                            1 1
+                            1 1 E
+                            FRL
+                            2 2 S
+                            """.trimIndent(),
+                        mars = mars,
                     )
                 },
             )
@@ -127,10 +134,10 @@ class EarthTest {
     }
 
     @Test fun shouldExecuteSeveralNoOpExpeditions() {
-        val mission1 = Mission.from(listOf("1 1 N", ""))
-        val mission2 = Mission.from(listOf("2 2 E", ""))
         val mars = Mars.from("2 2")
-        val log = Earth.expedition(mars = mars, missions = listOf(mission1, mission2))
+        val mission1 = Mission.from(missionConfig = listOf("1 1 N", ""), mars = mars)
+        val mission2 = Mission.from(missionConfig = listOf("2 2 E", ""), mars = mars)
+        val log = Earth.expedition(missions = listOf(mission1, mission2))
 
         assertEquals(
             expected = 2,

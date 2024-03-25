@@ -28,9 +28,9 @@ LLFFFLFLFL
 """
 
 val mars = Earth.mars(missionDetails)
-val missions = Earth.missions(missionDetails)
+val missions = Earth.missions(missionDetails = missionDetails, mars=mars)
 
-val log: Log = Earth.expedition(mars, missions)
+val log: Log = Earth.expedition(missions)
 
 print(log)
 /* This outputs to standard out:
