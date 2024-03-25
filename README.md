@@ -9,7 +9,39 @@ Author: [Gareth Tomlinson](mailto:garetht@garethtomlinson.co.uk), garetht@gareth
 ---
 
 ## Getting Started
-TODO
+The main entry point for the program is the `Earth` class.  It has a static method `expedition` which sends a series of Robots to Mars.
+
+The input for expedition is a `Mars` object, specifying the planet size and a list of `Mission`s which includes details of the Robots and their instructions.
+Both can be parsed from a string input with the `mars` and `missions` static methods respectively.
+
+```kotlin
+val missionDetails = """
+5 3             // Size of Mars expressed as the upper bound of x y coordinates. The lower bound is 0 0. In this example Mars is a 6 x 4 grid. 
+1 1 E           // Landing location (x y) and initial orientation of the first Robot. 
+RFRFRFRF        // Commands for the first Robot. L = turn 90d left. R = turn 90d right. F = move forward one grid square if possible.
+                // A blank line denotes a new Robot being sent to Mars.
+3 2 N
+FRRFLLFFRRFLL
+
+0 3 W
+LLFFFLFLFL
+"""
+
+val mars = Earth.mars(missionDetails)
+val missions = Earth.missions(missionDetails)
+
+val log: Log = Earth.expedition(mars, missions)
+
+print(log)
+/* This outputs to standard out:
+1 1 E           // Location and orientation of the last position of the Robot in the form x y orientation (location is zero-based)
+3 3 N LOST      // Robots are "lost" if they leave the grid. This is indicated with "LOST" at the end of the output for the lost Robot. 
+2 3 S           // Subsequent robots will ignore commands which try and move them to the same square as a "lost" robot.
+ */
+```
+
+The `Earth.expedition` method returns a `Log` object which can be used to interpret the mission details programmatically.
+The `toString()` method of `Log` is used to format the output for printing.
 
 ## Contributing
 ### Pre-commit hook
