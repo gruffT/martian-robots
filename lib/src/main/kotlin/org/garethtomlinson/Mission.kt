@@ -1,9 +1,11 @@
 package org.garethtomlinson
 
 import org.garethtomlinson.exceptions.BadConfigurationException
+import org.garethtomlinson.exceptions.MissedPlanetException
 
 class Mission private constructor(val robot: Robot, val instructions: List<Instruction>) {
     fun execute(mars: Mars): Outcome {
+        if (!mars.insideBounds(robot)) throw MissedPlanetException(robot)
         return Outcome(robot = robot, lost = false)
     }
 

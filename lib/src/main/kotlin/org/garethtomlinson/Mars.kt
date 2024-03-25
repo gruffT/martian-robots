@@ -4,6 +4,12 @@ import org.garethtomlinson.exceptions.BadConfigurationException
 import org.garethtomlinson.exceptions.BigPlanetException
 
 class Mars private constructor(val width: Int, val height: Int) {
+    fun insideBounds(robot: Robot): Boolean {
+        val x = robot.location.first
+        val y = robot.location.second
+        return x in 0..<width && y in 0..<height
+    }
+
     companion object {
         fun from(configuration: String): Mars {
             val configurationElements =

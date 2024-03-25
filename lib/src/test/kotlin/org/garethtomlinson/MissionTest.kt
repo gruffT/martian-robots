@@ -1,9 +1,10 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package org.garethtomlinson
 
 import org.garethtomlinson.exceptions.BadConfigurationException
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
+import org.garethtomlinson.exceptions.MissedPlanetException
+import kotlin.test.*
 
 class MissionTest {
     @Test fun shouldThrowABadConfigurationExceptionIf2LinesArentGiven() {
@@ -72,5 +73,14 @@ class MissionTest {
                 ),
             actual = mission.instructions,
         )
+    }
+
+    @Test fun shouldThrowAMissedPlanetExceptionIfLandingOutsideOfMarsBounds() {
+        val mission = Mission.from(listOf("2 2 N", ""))
+        val exception =
+            assertFailsWith<MissedPlanetException> {
+                mission.execute(Mars.from("1 1"))
+            }
+        assertEquals(expected = "Robot landed off planet at: 2 2", actual = exception.message)
     }
 }

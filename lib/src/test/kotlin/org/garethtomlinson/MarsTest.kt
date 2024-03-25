@@ -1,12 +1,32 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package org.garethtomlinson
 
 import org.garethtomlinson.exceptions.BadConfigurationException
 import org.garethtomlinson.exceptions.BigPlanetException
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
+import kotlin.test.*
 
 class MarsTest {
+    @Test fun shouldReturnInsideBoundsTrueIfRobotXIsInClosedOpenBound() {
+        val mars = Mars.from("1 1")
+
+        fun robotFactory(x: Int): Robot = Robot.startingWith(x, 0, Orientation.NORTH)
+        assertFalse(mars.insideBounds(robotFactory(-1)))
+        assertTrue(mars.insideBounds(robotFactory(0)))
+        assertTrue(mars.insideBounds(robotFactory(1)))
+        assertFalse(mars.insideBounds(robotFactory(2)))
+    }
+
+    @Test fun shouldReturnInsideBoundsTrueIfRobotYIsInClosedOpenBound() {
+        val mars = Mars.from("1 1")
+
+        fun robotFactory(y: Int): Robot = Robot.startingWith(0, y, Orientation.NORTH)
+        assertFalse(mars.insideBounds(robotFactory(-1)))
+        assertTrue(mars.insideBounds(robotFactory(0)))
+        assertTrue(mars.insideBounds(robotFactory(1)))
+        assertFalse(mars.insideBounds(robotFactory(2)))
+    }
+
     @Test fun shouldCreateAMarsFromAConfigurationString() {
         val mars = Mars.from("1 2")
 
