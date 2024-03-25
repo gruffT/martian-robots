@@ -126,7 +126,7 @@ class EarthTest {
         )
     }
 
-    @Test fun shouldExecuteAnExpedition() {
+    @Test fun shouldExecuteSeveralNoOpExpeditions() {
         val mission1 = Mission.from(listOf("1 1 N", ""))
         val mission2 = Mission.from(listOf("2 2 E", ""))
         val mars = Mars.from("2 2")

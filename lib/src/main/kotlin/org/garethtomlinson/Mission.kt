@@ -3,6 +3,10 @@ package org.garethtomlinson
 import org.garethtomlinson.exceptions.BadConfigurationException
 
 class Mission private constructor(val robot: Robot, val instructions: List<Instruction>) {
+    fun execute(mars: Mars): Outcome {
+        return Outcome(robot = robot, lost = false)
+    }
+
     companion object {
         fun from(missionConfig: List<String>): Mission {
             if (missionConfig.size != 2) {

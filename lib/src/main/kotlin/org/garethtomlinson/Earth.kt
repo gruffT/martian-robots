@@ -28,14 +28,7 @@ class Earth {
             mars: Mars,
             missions: List<Mission>,
         ): Log {
-            return Log(missions.asSequence().map { mission -> execute(mission, mars) }.toList())
-        }
-
-        private fun execute(
-            mission: Mission,
-            mars: Mars,
-        ): Outcome {
-            return Outcome(robot = mission.robot, lost = false)
+            return Log(outcomes = missions.asSequence().map { mission -> mission.execute(mars) }.toList())
         }
     }
 }
