@@ -45,6 +45,6 @@ class MissionTest {
     @Test fun shouldReturnARobot() {
         val robot = Mission.from(listOf("1 1 N", "")).robot
         assertEquals(expected = Location(1, 1), actual = robot.location)
-        assertEquals(expected = Orientation.N, actual = robot.orientation)
+        assertEquals(expected = Orientation.NORTH, actual = robot.orientation)
     }
 }

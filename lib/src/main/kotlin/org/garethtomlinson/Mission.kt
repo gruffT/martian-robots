@@ -15,8 +15,8 @@ class Mission private constructor(val robot: Robot) {
             val robotElements =
                 robotRegex.find(robotConfiguration)
                     ?: throw BadConfigurationException("Robot", robotConfiguration)
-            val (x, y, orientation) = robotElements.destructured
-            val robot = Robot.startingWith(x.toInt(), y.toInt(), Orientation.valueOf(orientation))
+            val (x, y, shortOrientation) = robotElements.destructured
+            val robot = Robot.startingWith(x.toInt(), y.toInt(), Orientation.from(shortOrientation))
             return Mission(robot)
         }
 
