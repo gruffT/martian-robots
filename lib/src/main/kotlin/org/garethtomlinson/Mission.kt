@@ -32,6 +32,6 @@ class Mission private constructor(val robot: Robot, val instructions: List<Instr
         }
 
         private val robotRegex = """^(\d+) (\d+) ([NESW])$""".toRegex()
-        private val instructionRegex = """^[FLR]+$""".toRegex()
+        private val instructionRegex = """^[FLR]*$""".toRegex()
     }
 }

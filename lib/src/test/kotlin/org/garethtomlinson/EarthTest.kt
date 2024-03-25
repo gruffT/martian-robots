@@ -1,10 +1,9 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package org.garethtomlinson
 
 import org.garethtomlinson.exceptions.BadConfigurationException
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 class EarthTest {
     private val missionDetails = """
@@ -125,5 +124,23 @@ class EarthTest {
             expected = "A bad configuration has been provided for Missions: `Input incorrectly chunked`",
             actual = exception.message,
         )
+    }
+
+    @Test fun shouldExecuteAnExpedition() {
+        val mission1 = Mission.from(listOf("1 1 N", ""))
+        val mission2 = Mission.from(listOf("2 2 E", ""))
+        val mars = Mars.from("2 2")
+        val log = Earth.expedition(mars = mars, missions = listOf(mission1, mission2))
+
+        assertEquals(
+            expected = 2,
+            actual = log.outcomes.size,
+        )
+
+        assertTrue(Robot.startingWith(1, 1, Orientation.NORTH).equivalent(log.outcomes[0].robot))
+        assertFalse(log.outcomes[0].lost)
+
+        assertTrue(Robot.startingWith(2, 2, Orientation.EAST).equivalent(log.outcomes[1].robot))
+        assertFalse(log.outcomes[1].lost)
     }
 }
