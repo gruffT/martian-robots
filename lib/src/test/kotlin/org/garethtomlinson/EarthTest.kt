@@ -1,7 +1,9 @@
 package org.garethtomlinson
 
+import org.garethtomlinson.exceptions.BadConfigurationException
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 class EarthTest {
     private val missionDetails = """
@@ -15,6 +17,19 @@ class EarthTest {
         0 3 W
         LLFFFLFLFL
     """
+
+    @Test fun shouldThrowBadConfigurationExceptionIfMissionDetailsEmpty() {
+        val exception =
+            assertFailsWith<BadConfigurationException>(
+                block = {
+                    Earth.mars("")
+                },
+            )
+        assertEquals(
+            expected = "A bad configuration has been provided for Mission Details: `No Mars configuration`",
+            actual = exception.message,
+        )
+    }
 
     @Test fun shouldExtractAMarsFromTheMissionDetails() {
         val mars = Earth.mars(missionDetails)
