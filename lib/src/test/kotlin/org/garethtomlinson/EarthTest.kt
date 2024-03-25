@@ -36,4 +36,24 @@ class EarthTest {
         assertEquals(expected = 6, actual = mars.width)
         assertEquals(expected = 4, actual = mars.height)
     }
+
+    @Test fun shouldThrowBadConfigurationExceptionIfNoTextIsProvided() {
+        val exception =
+            assertFailsWith<BadConfigurationException>(
+                block = {
+                    Earth.missions("    ")
+                },
+            )
+        assertEquals(expected = "A bad configuration has been provided for Missions: `No missions specified`", actual = exception.message)
+    }
+
+    @Test fun shouldThrowBadConfigurationExceptionIfNoMissionsAreProvided() {
+        val exception =
+            assertFailsWith<BadConfigurationException>(
+                block = {
+                    Earth.missions("1 2\n")
+                },
+            )
+        assertEquals(expected = "A bad configuration has been provided for Missions: `No missions specified`", actual = exception.message)
+    }
 }
