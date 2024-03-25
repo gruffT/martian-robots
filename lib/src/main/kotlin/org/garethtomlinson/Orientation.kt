@@ -9,6 +9,16 @@ enum class Orientation(val value: String) {
     WEST("W"),
     ;
 
+    fun turnLeft(): Orientation {
+        val newOrdinal = (this.ordinal + 4 - 1) % 4
+        return entries[newOrdinal]
+    }
+
+    fun turnRight(): Orientation {
+        val newOrdinal = (this.ordinal + 1) % 4
+        return entries[newOrdinal]
+    }
+
     companion object {
         fun from(shortOrientation: String): Orientation {
             return entries.find { it.value == shortOrientation }

@@ -5,7 +5,8 @@ import org.garethtomlinson.exceptions.MissedPlanetException
 
 class Mission private constructor(val robotPositions: List<Robot>, val instructions: List<Instruction>, val mars: Mars) {
     fun execute(): Mission {
-        return Mission(robotPositions = robotPositions, instructions, mars)
+        if (instructions.isEmpty()) return Mission(robotPositions = robotPositions, instructions = instructions, mars = mars)
+        return Mission(robotPositions = robotPositions + robotPositions.last().execute(instructions.first()), instructions.drop(1), mars)
     }
 
     companion object {
