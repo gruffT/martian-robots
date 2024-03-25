@@ -1,0 +1,13 @@
+#!/bin/bash
+set -e
+echo "*********************************************************"
+echo "Running git pre-commit hook. Running test and lint... "
+echo "*********************************************************"
+
+echo "Running lint check...."
+./gradlew ktlintCheck
+
+echo "Running tests...."
+./gradlew test
+
+echo "Success! Committing"
