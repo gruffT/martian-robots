@@ -59,9 +59,18 @@ class MissionTest {
         }
     }
 
-    @Test fun shouldReturnARobot() {
+    @Test fun shouldReturnARobotAndInstructions() {
         val mission = Mission.from(listOf("1 1 N", "FRL"))
         assertEquals(expected = Location(1, 1), actual = mission.robot.location)
         assertEquals(expected = Orientation.NORTH, actual = mission.robot.orientation)
+        assertEquals(
+            expected =
+                listOf(
+                    Instruction.FORWARD,
+                    Instruction.RIGHT,
+                    Instruction.LEFT,
+                ),
+            actual = mission.instructions,
+        )
     }
 }

@@ -2,7 +2,7 @@ package org.garethtomlinson
 
 import org.garethtomlinson.exceptions.BadConfigurationException
 
-class Mission private constructor(val robot: Robot) {
+class Mission private constructor(val robot: Robot, val instructions: List<Instruction>) {
     companion object {
         fun from(missionConfig: List<String>): Mission {
             if (missionConfig.size != 2) {
@@ -25,8 +25,10 @@ class Mission private constructor(val robot: Robot) {
             ) {
                 throw BadConfigurationException("Instructions", instructionConfiguration)
             }
+            val instructions: List<Instruction> =
+                instructionConfiguration.map { Instruction.from(it.toString()) }
 
-            return Mission(robot)
+            return Mission(robot, instructions)
         }
 
         private val robotRegex = """^(\d+) (\d+) ([NESW])$""".toRegex()
