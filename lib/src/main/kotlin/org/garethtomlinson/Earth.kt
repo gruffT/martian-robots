@@ -11,7 +11,7 @@ class Earth {
             return Mars.from(marsConfiguration)
         }
 
-        fun missions(missionDetails: String): List<Mission> {
+        fun missions(missionDetails: String): List<Unit> {
             val missionDetailsWithNoMars = missionDetails.trim().split("\n").drop(1)
             val missionChunks = missionDetailsWithNoMars.chunked(3).map { chunk -> chunk.filter { line -> line != "" } }
             if (missionDetails.trim().isEmpty() || missionChunks.isEmpty()) {
@@ -21,7 +21,7 @@ class Earth {
                 )
             }
             if (missionChunks.any { chunk -> chunk.size != 2 }) throw BadConfigurationException("Missions", "Input incorrectly chunked")
-            return Missions.from(missionChunks)
+            return missionChunks.map { chunk -> Mission.from(chunk) }
         }
     }
 }
