@@ -12,14 +12,24 @@ class Mission private constructor(val robot: Robot) {
                 )
             }
             val (robotConfiguration, instructionConfiguration) = missionConfig
+
             val robotElements =
                 robotRegex.find(robotConfiguration)
                     ?: throw BadConfigurationException("Robot", robotConfiguration)
             val (x, y, shortOrientation) = robotElements.destructured
             val robot = Robot.startingWith(x.toInt(), y.toInt(), Orientation.from(shortOrientation))
+
+            if (!instructionConfiguration.matches(
+                    instructionRegex,
+                )
+            ) {
+                throw BadConfigurationException("Instructions", instructionConfiguration)
+            }
+
             return Mission(robot)
         }
 
         private val robotRegex = """^(\d+) (\d+) ([NESW])$""".toRegex()
+        private val instructionRegex = """^[FLR]+$""".toRegex()
     }
 }

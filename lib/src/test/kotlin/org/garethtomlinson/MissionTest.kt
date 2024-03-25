@@ -42,9 +42,26 @@ class MissionTest {
         }
     }
 
+    @Test fun shouldThrowABadConfigurationExceptionIfInstructionsAreNotValid() {
+        val inputs =
+            sequenceOf(
+                listOf("1 1 N", "A"),
+                listOf("1 1 N", "R L"),
+                listOf("1 1 N", "R1L"),
+                listOf("1 1 N", "FAR"),
+            )
+        inputs.forEach {
+            val exception = assertFailsWith<BadConfigurationException> { Mission.from(it) }
+            assertEquals(
+                expected = "A bad configuration has been provided for Instructions: `${it[1]}`",
+                actual = exception.message,
+            )
+        }
+    }
+
     @Test fun shouldReturnARobot() {
-        val robot = Mission.from(listOf("1 1 N", "")).robot
-        assertEquals(expected = Location(1, 1), actual = robot.location)
-        assertEquals(expected = Orientation.NORTH, actual = robot.orientation)
+        val mission = Mission.from(listOf("1 1 N", "FRL"))
+        assertEquals(expected = Location(1, 1), actual = mission.robot.location)
+        assertEquals(expected = Orientation.NORTH, actual = mission.robot.orientation)
     }
 }
