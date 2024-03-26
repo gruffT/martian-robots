@@ -2,13 +2,11 @@ package org.garethtomlinson.reporting
 
 import org.garethtomlinson.Orientation
 import org.garethtomlinson.Robot
-import org.garethtomlinson.mission.Mars
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class LogTest {
     @Test fun shouldSerialiseToString() {
-        val mars = Mars.from("1 1")
         assertEquals(
             expected =
                 """
