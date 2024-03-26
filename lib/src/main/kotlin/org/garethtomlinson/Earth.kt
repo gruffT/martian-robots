@@ -25,12 +25,9 @@ class Earth {
         ): Status {
             val missionStart = status.startNewMission(mission.robot)
             if (mission.instructions.isEmpty()) return missionStart
-            val missionStatus: Status =
-                mission.instructions.fold(missionStart) {
-                        statusStage: Status, instruction: Instruction ->
-                    statusStage.execute(instruction)
-                }
-            return missionStatus
+            return mission.instructions.fold(missionStart) { statusStage: Status, instruction: Instruction ->
+                statusStage.execute(instruction)
+            }
         }
 
         fun mars(missionDetails: String): Mars {
