@@ -4,7 +4,7 @@ import kotlin.test.Test
 import kotlin.test.assertTrue
 
 class RobotTest {
-    val baseRobot = Robot.with(1, 1, Orientation.NORTH)
+    private val baseRobot = Robot.with(1, 1, Orientation.NORTH)
 
     @Test fun shouldExecuteARightTurn() {
         assertTrue(
