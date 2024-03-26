@@ -21,7 +21,7 @@ class Mission private constructor(val robot: Robot, val instructions: List<Instr
                 robotRegex.find(robotConfiguration)
                     ?: throw BadConfigurationException("Robot", robotConfiguration)
             val (x, y, shortOrientation) = robotElements.destructured
-            val robot = Robot.startingWith(x.toInt(), y.toInt(), Orientation.from(shortOrientation))
+            val robot = Robot.with(x.toInt(), y.toInt(), Orientation.from(shortOrientation))
             if (!mars.insideBounds(robot)) throw MissedPlanetException(robot)
 
             if (!instructionConfiguration.matches(

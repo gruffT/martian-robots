@@ -16,8 +16,8 @@ class LogTest {
                 Log(
                     reports =
                         listOf(
-                            MissionReport(lastPosition = Robot.startingWith(1, 1, Orientation.NORTH), lost = false),
-                            MissionReport(lastPosition = Robot.startingWith(2, 2, Orientation.SOUTH), lost = true),
+                            MissionReport(lastPosition = Robot.with(1, 1, Orientation.NORTH), lost = false),
+                            MissionReport(lastPosition = Robot.with(2, 2, Orientation.SOUTH), lost = true),
                         ),
                 ).toString(),
         )

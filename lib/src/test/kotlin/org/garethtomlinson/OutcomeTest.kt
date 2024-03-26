@@ -7,7 +7,7 @@ import kotlin.test.assertTrue
 
 class OutcomeTest {
     private val mars = Mars.from("2 2")
-    private val baseRobot = Robot.startingWith(2, 2, Orientation.NORTH)
+    private val baseRobot = Robot.with(2, 2, Orientation.NORTH)
 
     @Test fun shouldExecuteAnInstruction() {
         val outcome = Outcome.prepare(mars = mars).startNewMission(robot = baseRobot)
@@ -18,7 +18,7 @@ class OutcomeTest {
         assertTrue(updatedOutcome.missions[0].size == 2)
         assertEquals(expected = baseRobot, updatedOutcome.missions[0][0])
         assertTrue(
-            updatedOutcome.missions[0][1].equivalent(Robot.startingWith(2, 2, Orientation.EAST)),
+            updatedOutcome.missions[0][1].equivalent(Robot.with(2, 2, Orientation.EAST)),
         )
     }
 
@@ -32,11 +32,11 @@ class OutcomeTest {
         val missionReport = outcome.missionReports()[0]
         assertTrue(missionReport.lost)
         assertTrue(missionReport.lastPosition.equivalent(baseRobot))
-        assertTrue(outcome.missions.last().last().equivalent(Robot.startingWith(2, 3, Orientation.NORTH)))
+        assertTrue(outcome.missions.last().last().equivalent(Robot.with(2, 3, Orientation.NORTH)))
     }
 
     @Test fun shouldIgnoreInstructionIfItWouldMoveRobotToLostRobotSite() {
-        val newRobot = Robot.startingWith(2, 2, Orientation.NORTH)
+        val newRobot = Robot.with(2, 2, Orientation.NORTH)
 
         val outcome =
             Outcome.prepare(mars = mars).startNewMission(robot = baseRobot)
@@ -48,7 +48,7 @@ class OutcomeTest {
         val firstMissionReport = outcome.missionReports().first()
         assertTrue(firstMissionReport.lost)
         assertTrue(firstMissionReport.lastPosition.equivalent(baseRobot))
-        assertTrue(outcome.missions.first().last().equivalent(Robot.startingWith(2, 3, Orientation.NORTH)))
+        assertTrue(outcome.missions.first().last().equivalent(Robot.with(2, 3, Orientation.NORTH)))
 
         val secondMissionReport = outcome.missionReports().last()
         assertFalse(secondMissionReport.lost)
@@ -68,7 +68,7 @@ class OutcomeTest {
     }
 
     @Test fun shouldReturnMissionReports() {
-        val otherRobot = Robot.startingWith(2, 2, Orientation.SOUTH)
+        val otherRobot = Robot.with(2, 2, Orientation.SOUTH)
         val outcome =
             Outcome.prepare(mars)
                 .startNewMission(robot = baseRobot)

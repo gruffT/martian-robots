@@ -10,7 +10,7 @@ class MarsTest {
     @Test fun shouldReturnInsideBoundsTrueIfRobotXIsInClosedOpenBound() {
         val mars = Mars.from("1 1")
 
-        fun robotFactory(x: Int): Robot = Robot.startingWith(x, 0, Orientation.NORTH)
+        fun robotFactory(x: Int): Robot = Robot.with(x, 0, Orientation.NORTH)
         assertFalse(mars.insideBounds(robotFactory(-1)))
         assertTrue(mars.insideBounds(robotFactory(0)))
         assertTrue(mars.insideBounds(robotFactory(1)))
@@ -20,7 +20,7 @@ class MarsTest {
     @Test fun shouldReturnInsideBoundsTrueIfRobotYIsInClosedOpenBound() {
         val mars = Mars.from("1 1")
 
-        fun robotFactory(y: Int): Robot = Robot.startingWith(0, y, Orientation.NORTH)
+        fun robotFactory(y: Int): Robot = Robot.with(0, y, Orientation.NORTH)
         assertFalse(mars.insideBounds(robotFactory(-1)))
         assertTrue(mars.insideBounds(robotFactory(0)))
         assertTrue(mars.insideBounds(robotFactory(1)))

@@ -26,7 +26,7 @@ class Robot private constructor(val location: Location, val orientation: Orienta
     }
 
     companion object {
-        fun startingWith(
+        fun with(
             x: Int,
             y: Int,
             orientation: Orientation,

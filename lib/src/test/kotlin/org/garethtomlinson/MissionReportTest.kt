@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class MissionReportTest {
-    private val robot = Robot.startingWith(2, 2, Orientation.NORTH)
+    private val robot = Robot.with(2, 2, Orientation.NORTH)
 
     @Test fun shouldSerialiseToString() {
         assertEquals(

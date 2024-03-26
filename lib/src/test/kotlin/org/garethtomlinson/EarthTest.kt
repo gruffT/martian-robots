@@ -144,10 +144,10 @@ class EarthTest {
             actual = log.reports.size,
         )
 
-        assertTrue(Robot.startingWith(1, 1, Orientation.NORTH).equivalent(log.reports[0].lastPosition))
+        assertTrue(Robot.with(1, 1, Orientation.NORTH).equivalent(log.reports[0].lastPosition))
         assertFalse(log.reports[0].lost)
 
-        assertTrue(Robot.startingWith(2, 2, Orientation.EAST).equivalent(log.reports[1].lastPosition))
+        assertTrue(Robot.with(2, 2, Orientation.EAST).equivalent(log.reports[1].lastPosition))
         assertFalse(log.reports[1].lost)
     }
 
@@ -162,10 +162,10 @@ class EarthTest {
             actual = log.reports.size,
         )
 
-        assertTrue(Robot.startingWith(2, 1, Orientation.EAST).equivalent(log.reports[0].lastPosition))
+        assertTrue(Robot.with(2, 1, Orientation.EAST).equivalent(log.reports[0].lastPosition))
         assertFalse(log.reports[0].lost)
 
-        assertTrue(Robot.startingWith(1, 1, Orientation.SOUTH).equivalent(log.reports[1].lastPosition))
+        assertTrue(Robot.with(1, 1, Orientation.SOUTH).equivalent(log.reports[1].lastPosition))
         assertFalse(log.reports[1].lost)
     }
 }
