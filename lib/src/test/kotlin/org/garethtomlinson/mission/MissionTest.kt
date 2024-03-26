@@ -1,7 +1,10 @@
 @file:Suppress("ktlint:standard:no-wildcard-imports")
 
-package org.garethtomlinson
+package org.garethtomlinson.mission
 
+import org.garethtomlinson.Instruction
+import org.garethtomlinson.Location
+import org.garethtomlinson.Orientation
 import org.garethtomlinson.exceptions.BadConfigurationException
 import org.garethtomlinson.exceptions.MissedPlanetException
 import kotlin.test.*

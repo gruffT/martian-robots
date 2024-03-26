@@ -1,7 +1,10 @@
-package org.garethtomlinson
+package org.garethtomlinson.mission
 
+import org.garethtomlinson.Robot
 import org.garethtomlinson.exceptions.BadConfigurationException
 import org.garethtomlinson.exceptions.BigPlanetException
+import org.garethtomlinson.x
+import org.garethtomlinson.y
 
 class Mars private constructor(val width: Int, val height: Int) {
     fun insideBounds(robot: Robot): Boolean = robot.location.x() in 0..<width && robot.location.y() in 0..<height

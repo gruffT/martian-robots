@@ -1,5 +1,8 @@
-package org.garethtomlinson
+package org.garethtomlinson.mission
 
+import org.garethtomlinson.Instruction
+import org.garethtomlinson.Orientation
+import org.garethtomlinson.Robot
 import org.garethtomlinson.exceptions.BadConfigurationException
 import org.garethtomlinson.exceptions.MissedPlanetException
 

@@ -1,5 +1,8 @@
-package org.garethtomlinson
+package org.garethtomlinson.reporting
 
+import org.garethtomlinson.Orientation
+import org.garethtomlinson.Robot
+import org.garethtomlinson.mission.Mars
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

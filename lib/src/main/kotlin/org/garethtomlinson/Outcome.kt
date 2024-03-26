@@ -1,5 +1,8 @@
 package org.garethtomlinson
 
+import org.garethtomlinson.mission.Mars
+import org.garethtomlinson.reporting.MissionReport
+
 typealias RobotTrail = List<Robot>
 
 class Outcome private constructor(val missions: List<RobotTrail>, val mars: Mars) {

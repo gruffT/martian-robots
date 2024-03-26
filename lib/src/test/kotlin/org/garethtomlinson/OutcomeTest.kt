@@ -1,5 +1,7 @@
 package org.garethtomlinson
 
+import org.garethtomlinson.mission.Mars
+import org.garethtomlinson.reporting.MissionReport
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse

@@ -3,6 +3,8 @@
 package org.garethtomlinson
 
 import org.garethtomlinson.exceptions.BadConfigurationException
+import org.garethtomlinson.mission.Mars
+import org.garethtomlinson.mission.Mission
 import kotlin.test.*
 
 class EarthTest {

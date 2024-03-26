@@ -1,4 +1,8 @@
-package org.garethtomlinson
+package org.garethtomlinson.reporting
+
+import org.garethtomlinson.Robot
+import org.garethtomlinson.x
+import org.garethtomlinson.y
 
 data class MissionReport(val lastPosition: Robot, val lost: Boolean) {
     override fun toString(): String {

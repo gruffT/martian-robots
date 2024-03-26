@@ -1,6 +1,9 @@
 package org.garethtomlinson
 
 import org.garethtomlinson.exceptions.BadConfigurationException
+import org.garethtomlinson.mission.Mars
+import org.garethtomlinson.mission.Mission
+import org.garethtomlinson.reporting.Log
 
 class Earth {
     companion object {

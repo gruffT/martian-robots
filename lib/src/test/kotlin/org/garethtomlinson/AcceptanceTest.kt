@@ -1,5 +1,6 @@
 package org.garethtomlinson
 
+import org.garethtomlinson.reporting.Log
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
