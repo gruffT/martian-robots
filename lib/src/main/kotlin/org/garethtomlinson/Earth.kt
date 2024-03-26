@@ -44,14 +44,14 @@ class Earth {
             mission: Mission,
             mars: Mars,
         ): Outcome {
-            if (mission.instructions.isEmpty()) return Mission.outcome(mission = mission, mars = mars)
-            val executedMission: Mission =
-                mission.instructions.fold(mission) {
-                        acc: Mission, instruction: Instruction ->
-                    acc.execute(instruction)
+            val missionStart = Outcome.fromFirstMission(mission.robot, mars = mars)
+            if (mission.instructions.isEmpty()) return missionStart
+            val missionOutcome: Outcome =
+                mission.instructions.fold(missionStart) {
+                        outcomeStage: Outcome, instruction: Instruction ->
+                    outcomeStage.execute(instruction)
                 }
-            val lastRobotPosition = executedMission.robotPositions.last()
-            return Outcome(robot = lastRobotPosition, lost = !mars.insideBounds(lastRobotPosition))
+            return missionOutcome
         }
     }
 }
