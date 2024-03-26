@@ -19,6 +19,12 @@ class Earth {
             )
         }
 
+        fun expedition(missionDetails: String): Log {
+            val mars = mars(missionDetails)
+            val missions = missions(missionDetails, mars)
+            return expedition(missions, mars)
+        }
+
         private fun executeMission(
             mission: Mission,
             status: Status,

@@ -170,4 +170,15 @@ class EarthTest {
         assertTrue(Robot.with(1, 1, Orientation.SOUTH).equivalent(log.reports[1].lastPosition))
         assertFalse(log.reports[1].lost)
     }
+
+    @Test fun shouldProvideATextOnlyInputToExpedition() {
+        val log = Earth.expedition(missionDetails)
+        assertTrue(log.reports.size == 3)
+        assertTrue(log.reports[0].lastPosition.equivalent(Robot.with(1, 1, Orientation.EAST)))
+        assertFalse(log.reports[0].lost)
+        assertTrue(log.reports[1].lastPosition.equivalent(Robot.with(3, 3, Orientation.NORTH)))
+        assertTrue(log.reports[1].lost)
+        assertTrue(log.reports[2].lastPosition.equivalent(Robot.with(2, 3, Orientation.SOUTH)))
+        assertFalse(log.reports[2].lost)
+    }
 }

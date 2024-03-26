@@ -14,6 +14,8 @@ The main entry point for the program is the `Earth` class.  It has a static meth
 The input for expedition is a `Mars` object, specifying the planet size and a list of `Mission`s which includes details of the Robots and their instructions.
 Both can be parsed from a string input with the `mars` and `missions` static methods respectively.
 
+For convenience there is also an `expedition` method which takes the mission details as string input and carries out this parsing stage for you. 
+
 ```kotlin
 val missionDetails = """
 5 3             // Size of Mars expressed as the upper bound of x y coordinates. The lower bound is 0 0. In this example Mars is a 6 x 4 grid. 
@@ -27,10 +29,7 @@ FRRFLLFFRRFLL
 LLFFFLFLFL
 """
 
-val mars = Earth.mars(missionDetails)
-val missions = Earth.missions(missionDetails = missionDetails, mars=mars)
-
-val log: Log = Earth.expedition(missions, mars)
+val log: Log = Earth.expedition(missionDetails)
 
 print(log)
 /* This outputs to standard out (without the comments):
@@ -42,7 +41,7 @@ print(log)
 
 For `lost` robots, the last known position is reported.
 
-The `Earth.expedition` method returns a `Log` object which can be used to interpret the mission details programmatically.
+The `Earth.expedition` method returns a `Log` object, which contains `reports` which can be used to interpret the mission outcomes programmatically.
 The `toString()` method of `Log` is used to format the output for display.
 
 ## Contributing
