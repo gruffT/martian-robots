@@ -32,19 +32,18 @@ class Earth {
             mars: Mars,
         ): Log {
             return Log(
-                outcomes =
-                    missions.asSequence().map {
-                            mission ->
-                        executeMission(mission, mars)
-                    }.toList(),
+                missions.fold(Outcome.prepare(mars)) {
+                        outcome, mission ->
+                    executeMission(mission, outcome)
+                }.missionReports(),
             )
         }
 
         private fun executeMission(
             mission: Mission,
-            mars: Mars,
+            outcome: Outcome,
         ): Outcome {
-            val missionStart = Outcome.fromFirstMission(mission.robot, mars = mars)
+            val missionStart = outcome.startNewMission(mission.robot)
             if (mission.instructions.isEmpty()) return missionStart
             val missionOutcome: Outcome =
                 mission.instructions.fold(missionStart) {

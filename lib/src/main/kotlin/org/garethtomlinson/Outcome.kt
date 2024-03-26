@@ -1,30 +1,22 @@
 package org.garethtomlinson
 
-class Outcome private constructor(val robotPositions: List<Robot>, val mars: Mars) {
+class Outcome private constructor(val robotPositions: List<List<Robot>>, val mars: Mars) {
     fun execute(instruction: Instruction): Outcome {
-        return Outcome(robotPositions = robotPositions + robotPositions.last().execute(instruction), mars)
+        val previousMissions = robotPositions.dropLast(1)
+        val currentMission = robotPositions.last()
+        val updatedMission = currentMission + currentMission.last().execute(instruction)
+        return Outcome(robotPositions = previousMissions + listOf(updatedMission), mars)
     }
 
-    fun isLost(): Boolean {
-        return !mars.insideBounds(robotPositions.last())
+    fun missionReports(): List<MissionReport> {
+        return robotPositions.map { mission -> MissionReport(mission.last(), !mars.insideBounds(mission.last())) }
     }
 
-    fun lastPosition(): Robot {
-        return robotPositions.last()
-    }
-
-    override fun toString(): String {
-        if (robotPositions.isEmpty()) return "Mission has no outcome"
-        val robot = robotPositions.last()
-        return "${robot.location.first} ${robot.location.second} ${robot.orientation.value}${if (isLost()) " LOST" else "" }"
+    fun startNewMission(robot: Robot): Outcome {
+        return Outcome(robotPositions = robotPositions + listOf(listOf(robot)), mars = mars)
     }
 
     companion object {
-        fun fromFirstMission(
-            robot: Robot,
-            mars: Mars,
-        ): Outcome {
-            return Outcome(robotPositions = listOf(robot), mars = mars)
-        }
+        fun prepare(mars: Mars): Outcome = Outcome(robotPositions = listOf(), mars = mars)
     }
 }

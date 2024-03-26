@@ -141,14 +141,14 @@ class EarthTest {
 
         assertEquals(
             expected = 2,
-            actual = log.outcomes.size,
+            actual = log.reports.size,
         )
 
-        assertTrue(Robot.startingWith(1, 1, Orientation.NORTH).equivalent(log.outcomes[0].lastPosition()))
-        assertFalse(log.outcomes[0].isLost())
+        assertTrue(Robot.startingWith(1, 1, Orientation.NORTH).equivalent(log.reports[0].lastPosition))
+        assertFalse(log.reports[0].lost)
 
-        assertTrue(Robot.startingWith(2, 2, Orientation.EAST).equivalent(log.outcomes[1].lastPosition()))
-        assertFalse(log.outcomes[1].isLost())
+        assertTrue(Robot.startingWith(2, 2, Orientation.EAST).equivalent(log.reports[1].lastPosition))
+        assertFalse(log.reports[1].lost)
     }
 
     @Test fun shouldExecuteSeveralMissionsWithInstructions() {
@@ -159,13 +159,13 @@ class EarthTest {
 
         assertEquals(
             expected = 2,
-            actual = log.outcomes.size,
+            actual = log.reports.size,
         )
 
-        assertTrue(Robot.startingWith(2, 1, Orientation.EAST).equivalent(log.outcomes[0].lastPosition()))
-        assertFalse(log.outcomes[0].isLost())
+        assertTrue(Robot.startingWith(2, 1, Orientation.EAST).equivalent(log.reports[0].lastPosition))
+        assertFalse(log.reports[0].lost)
 
-        assertTrue(Robot.startingWith(1, 1, Orientation.SOUTH).equivalent(log.outcomes[1].lastPosition()))
-        assertFalse(log.outcomes[1].isLost())
+        assertTrue(Robot.startingWith(1, 1, Orientation.SOUTH).equivalent(log.reports[1].lastPosition))
+        assertFalse(log.reports[1].lost)
     }
 }

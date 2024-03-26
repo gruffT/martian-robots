@@ -1,7 +1,7 @@
 package org.garethtomlinson
 
-data class Log(val outcomes: List<Outcome>) {
+data class Log(val reports: List<MissionReport>) {
     override fun toString(): String {
-        return outcomes.joinToString(separator = "\n") { it.toString() }
+        return reports.joinToString(separator = "\n") { it.toString() }
     }
 }

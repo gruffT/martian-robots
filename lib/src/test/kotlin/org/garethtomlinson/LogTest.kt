@@ -14,10 +14,10 @@ class LogTest {
                 """.trimIndent(),
             actual =
                 Log(
-                    outcomes =
+                    reports =
                         listOf(
-                            Outcome.fromFirstMission(robot = Robot.startingWith(1, 1, Orientation.NORTH), mars = mars),
-                            Outcome.fromFirstMission(robot = Robot.startingWith(2, 2, Orientation.SOUTH), mars = mars),
+                            MissionReport(lastPosition = Robot.startingWith(1, 1, Orientation.NORTH), lost = false),
+                            MissionReport(lastPosition = Robot.startingWith(2, 2, Orientation.SOUTH), lost = true),
                         ),
                 ).toString(),
         )
