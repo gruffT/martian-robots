@@ -7,59 +7,59 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-class OutcomeTest {
+class StatusTest {
     private val mars = Mars.from("2 2")
     private val baseRobot = Robot.with(2, 2, Orientation.NORTH)
 
     @Test fun shouldExecuteAnInstruction() {
-        val outcome = Outcome.prepare(mars = mars).startNewMission(robot = baseRobot)
-        val updatedOutcome = outcome.execute(Instruction.RIGHT)
+        val status = Status.prepare(mars = mars).startNewMission(robot = baseRobot)
+        val updatedStatus = status.execute(Instruction.RIGHT)
 
-        assertEquals(expected = mars, updatedOutcome.mars)
-        assertTrue(updatedOutcome.missions.size == 1)
-        assertTrue(updatedOutcome.missions[0].size == 2)
-        assertEquals(expected = baseRobot, updatedOutcome.missions[0][0])
+        assertEquals(expected = mars, updatedStatus.mars)
+        assertTrue(updatedStatus.missions.size == 1)
+        assertTrue(updatedStatus.missions[0].size == 2)
+        assertEquals(expected = baseRobot, updatedStatus.missions[0][0])
         assertTrue(
-            updatedOutcome.missions[0][1].equivalent(Robot.with(2, 2, Orientation.EAST)),
+            updatedStatus.missions[0][1].equivalent(Robot.with(2, 2, Orientation.EAST)),
         )
     }
 
     @Test fun shouldIgnoreCommandsIfLost() {
-        val outcome =
-            Outcome.prepare(mars = mars).startNewMission(robot = baseRobot)
+        val status =
+            Status.prepare(mars = mars).startNewMission(robot = baseRobot)
                 .execute(Instruction.FORWARD)
                 .execute(Instruction.FORWARD)
                 .execute(Instruction.RIGHT)
 
-        val missionReport = outcome.missionReports()[0]
+        val missionReport = status.missionReports()[0]
         assertTrue(missionReport.lost)
         assertTrue(missionReport.lastPosition.equivalent(baseRobot))
-        assertTrue(outcome.missions.last().last().equivalent(Robot.with(2, 3, Orientation.NORTH)))
+        assertTrue(status.missions.last().last().equivalent(Robot.with(2, 3, Orientation.NORTH)))
     }
 
     @Test fun shouldIgnoreInstructionIfItWouldMoveRobotToLostRobotSite() {
         val newRobot = Robot.with(2, 2, Orientation.NORTH)
 
-        val outcome =
-            Outcome.prepare(mars = mars).startNewMission(robot = baseRobot)
+        val status =
+            Status.prepare(mars = mars).startNewMission(robot = baseRobot)
                 .execute(Instruction.FORWARD)
                 .startNewMission(newRobot)
                 .execute(Instruction.FORWARD)
 
-        assertTrue(outcome.missionReports().size == 2)
-        val firstMissionReport = outcome.missionReports().first()
+        assertTrue(status.missionReports().size == 2)
+        val firstMissionReport = status.missionReports().first()
         assertTrue(firstMissionReport.lost)
         assertTrue(firstMissionReport.lastPosition.equivalent(baseRobot))
-        assertTrue(outcome.missions.first().last().equivalent(Robot.with(2, 3, Orientation.NORTH)))
+        assertTrue(status.missions.first().last().equivalent(Robot.with(2, 3, Orientation.NORTH)))
 
-        val secondMissionReport = outcome.missionReports().last()
+        val secondMissionReport = status.missionReports().last()
         assertFalse(secondMissionReport.lost)
         assertTrue(secondMissionReport.lastPosition.equivalent(newRobot))
 
-        assertTrue(outcome.missions.size == 2)
-        assertTrue(outcome.missions[0].size == 2)
+        assertTrue(status.missions.size == 2)
+        assertTrue(status.missions[0].size == 2)
 
-        assertRobotHasIgnoredCommand(outcome.missions[1][0], outcome.missions[1][1])
+        assertRobotHasIgnoredCommand(status.missions[1][0], status.missions[1][1])
     }
 
     private fun assertRobotHasIgnoredCommand(
@@ -71,11 +71,11 @@ class OutcomeTest {
 
     @Test fun shouldReturnMissionReports() {
         val otherRobot = Robot.with(2, 2, Orientation.SOUTH)
-        val outcome =
-            Outcome.prepare(mars)
+        val status =
+            Status.prepare(mars)
                 .startNewMission(robot = baseRobot)
                 .startNewMission(robot = otherRobot)
-        val missionReports = outcome.missionReports()
+        val missionReports = status.missionReports()
 
         assertTrue(missionReports.size == 2)
         assertEquals(expected = MissionReport(lastPosition = baseRobot, lost = false), actual = missionReports[0])
@@ -83,8 +83,8 @@ class OutcomeTest {
     }
 
     @Test fun shouldReturnMissionReportsForLostRobotStatingLastKnownPosition() {
-        val outcome = Outcome.prepare(Mars.from("2 2")).startNewMission(robot = baseRobot).execute(Instruction.FORWARD)
-        val missionReports = outcome.missionReports()
+        val status = Status.prepare(Mars.from("2 2")).startNewMission(robot = baseRobot).execute(Instruction.FORWARD)
+        val missionReports = status.missionReports()
 
         assertTrue(missionReports.size == 1)
         assertTrue(missionReports[0].lost)

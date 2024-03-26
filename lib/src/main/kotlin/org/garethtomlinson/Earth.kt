@@ -35,25 +35,25 @@ class Earth {
             mars: Mars,
         ): Log {
             return Log(
-                missions.fold(Outcome.prepare(mars)) {
-                        outcome, mission ->
-                    executeMission(mission, outcome)
+                missions.fold(Status.prepare(mars)) {
+                        status, mission ->
+                    executeMission(mission, status)
                 }.missionReports(),
             )
         }
 
         private fun executeMission(
             mission: Mission,
-            outcome: Outcome,
-        ): Outcome {
-            val missionStart = outcome.startNewMission(mission.robot)
+            status: Status,
+        ): Status {
+            val missionStart = status.startNewMission(mission.robot)
             if (mission.instructions.isEmpty()) return missionStart
-            val missionOutcome: Outcome =
+            val missionStatus: Status =
                 mission.instructions.fold(missionStart) {
-                        outcomeStage: Outcome, instruction: Instruction ->
-                    outcomeStage.execute(instruction)
+                        statusStage: Status, instruction: Instruction ->
+                    statusStage.execute(instruction)
                 }
-            return missionOutcome
+            return missionStatus
         }
     }
 }
