@@ -27,14 +27,31 @@ class Earth {
             return missionChunks.map { chunk -> Mission.from(missionConfig = chunk, mars = mars) }
         }
 
-        fun expedition(missions: List<Mission>): Log {
+        fun expedition(
+            missions: List<Mission>,
+            mars: Mars,
+        ): Log {
             return Log(
                 outcomes =
                     missions.asSequence().map {
                             mission ->
-                        Mission.outcome(mission = mission.execute(), mars = mission.mars)
+                        executeMission(mission, mars)
                     }.toList(),
             )
+        }
+
+        private fun executeMission(
+            mission: Mission,
+            mars: Mars,
+        ): Outcome {
+            if (mission.instructions.isEmpty()) return Mission.outcome(mission = mission, mars = mars)
+            val executedMission: Mission =
+                mission.instructions.fold(mission) {
+                        acc: Mission, instruction: Instruction ->
+                    acc.execute(instruction)
+                }
+            val lastRobotPosition = executedMission.robotPositions.last()
+            return Outcome(robot = lastRobotPosition, lost = !mars.insideBounds(lastRobotPosition))
         }
     }
 }

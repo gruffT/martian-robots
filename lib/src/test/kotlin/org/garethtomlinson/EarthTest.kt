@@ -137,7 +137,7 @@ class EarthTest {
         val mars = Mars.from("2 2")
         val mission1 = Mission.from(missionConfig = listOf("1 1 N", ""), mars = mars)
         val mission2 = Mission.from(missionConfig = listOf("2 2 E", ""), mars = mars)
-        val log = Earth.expedition(missions = listOf(mission1, mission2))
+        val log = Earth.expedition(missions = listOf(mission1, mission2), mars = mars)
 
         assertEquals(
             expected = 2,
@@ -148,6 +148,24 @@ class EarthTest {
         assertFalse(log.outcomes[0].lost)
 
         assertTrue(Robot.startingWith(2, 2, Orientation.EAST).equivalent(log.outcomes[1].robot))
+        assertFalse(log.outcomes[1].lost)
+    }
+
+    @Test fun shouldExecuteSeveralMissionsWithInstructions() {
+        val mars = Mars.from("2 2")
+        val mission1 = Mission.from(missionConfig = listOf("1 1 N", "RF"), mars = mars)
+        val mission2 = Mission.from(missionConfig = listOf("2 2 E", "LLFLF"), mars = mars)
+        val log = Earth.expedition(missions = listOf(mission1, mission2), mars = mars)
+
+        assertEquals(
+            expected = 2,
+            actual = log.outcomes.size,
+        )
+
+        assertTrue(Robot.startingWith(2, 1, Orientation.EAST).equivalent(log.outcomes[0].robot))
+        assertFalse(log.outcomes[0].lost)
+
+        assertTrue(Robot.startingWith(1, 1, Orientation.SOUTH).equivalent(log.outcomes[1].robot))
         assertFalse(log.outcomes[1].lost)
     }
 }

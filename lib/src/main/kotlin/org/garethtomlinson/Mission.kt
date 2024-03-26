@@ -4,9 +4,8 @@ import org.garethtomlinson.exceptions.BadConfigurationException
 import org.garethtomlinson.exceptions.MissedPlanetException
 
 class Mission private constructor(val robotPositions: List<Robot>, val instructions: List<Instruction>, val mars: Mars) {
-    fun execute(): Mission {
-        if (instructions.isEmpty()) return Mission(robotPositions = robotPositions, instructions = instructions, mars = mars)
-        return Mission(robotPositions = robotPositions + robotPositions.last().execute(instructions.first()), instructions.drop(1), mars)
+    fun execute(instruction: Instruction): Mission {
+        return Mission(robotPositions = robotPositions + robotPositions.last().execute(instruction), listOf(), mars)
     }
 
     companion object {

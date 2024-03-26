@@ -88,12 +88,12 @@ class MissionTest {
         assertEquals(expected = "Robot landed off planet at: 2 2", actual = exception.message)
     }
 
-    @Test fun shouldExecuteAMissionInstruction() {
-        val mars = Mars.from("2 2")
-        val mission = Mission.from(listOf("1 1 N", "R"), mars = mars)
-        val outcome = Mission.outcome(mission.execute(), mars = mars)
-
-        assertTrue(Robot.startingWith(1, 1, Orientation.EAST).equivalent(outcome.robot))
-        assertFalse(outcome.lost)
-    }
+//    @Test fun shouldExecuteAMissionInstruction() {
+//        val mars = Mars.from("2 2")
+//        val mission = Mission.from(listOf("1 1 N", "R"), mars = mars)
+//        val outcome = Mission.outcome(mission.execute(), mars = mars)
+//
+//        assertTrue(Robot.startingWith(1, 1, Orientation.EAST).equivalent(outcome.robot))
+//        assertFalse(outcome.lost)
+//    }
 }
