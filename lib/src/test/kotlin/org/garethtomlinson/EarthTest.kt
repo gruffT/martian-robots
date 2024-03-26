@@ -21,7 +21,7 @@ class EarthTest {
     """
     private val mars = Mars.from("5 3")
 
-    @Test fun shouldThrowBadConfigurationExceptionIfMissionDetailsEmpty() {
+    @Test fun shouldThrowBadConfigurationExceptionGettingMarsIfMissionDetailsEmpty() {
         val exception =
             assertFailsWith<BadConfigurationException>(
                 block = {
@@ -40,7 +40,7 @@ class EarthTest {
         assertEquals(expected = 4, actual = mars.height)
     }
 
-    @Test fun shouldThrowBadConfigurationExceptionIfNoTextIsProvided() {
+    @Test fun shouldThrowBadConfigurationExceptionGettingMissionsIfOnlyWhitespaceIsProvided() {
         val exception =
             assertFailsWith<BadConfigurationException>(
                 block = {
@@ -50,7 +50,7 @@ class EarthTest {
         assertEquals(expected = "A bad configuration has been provided for Missions: `No missions specified`", actual = exception.message)
     }
 
-    @Test fun shouldThrowBadConfigurationExceptionIfNoMissionsAreProvided() {
+    @Test fun shouldThrowBadConfigurationExceptionGettingMissionsIfOnlyMarsIsProvided() {
         val exception =
             assertFailsWith<BadConfigurationException>(
                 block = {
@@ -78,7 +78,7 @@ class EarthTest {
     }
 
     @Test
-    fun shouldThrowBadConfigurationExceptionIfNoInputIsGiven() {
+    fun shouldThrowBadConfigurationExceptionGettingMissionIfNoInputIsGiven() {
         val exception =
             assertFailsWith<BadConfigurationException>(
                 block = {
