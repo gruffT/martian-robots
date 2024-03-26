@@ -30,10 +30,10 @@ LLFFFLFLFL
 val mars = Earth.mars(missionDetails)
 val missions = Earth.missions(missionDetails = missionDetails, mars=mars)
 
-val log: Log = Earth.expedition(missions)
+val log: Log = Earth.expedition(missions, mars)
 
 print(log)
-/* This outputs to standard out:
+/* This outputs to standard out (without the comments):
 1 1 E           // Location and orientation of the last position of the Robot in the form x y orientation (location is zero-based)
 3 3 N LOST      // Robots are "lost" if they leave the grid. This is indicated with "LOST" at the end of the output for the lost Robot. 
 2 3 S           // Subsequent robots will ignore commands which try and move them to the same square as a "lost" robot.

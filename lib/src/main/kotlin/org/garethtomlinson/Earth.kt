@@ -15,7 +15,7 @@ class Earth {
             missionDetails: String,
             mars: Mars,
         ): List<Mission> {
-            val missionDetailsWithNoMars = missionDetails.trim().split("\n").drop(1)
+            val missionDetailsWithNoMars = missionDetails.trim().split("\n").drop(1).map { it.trim() }
             val missionChunks = missionDetailsWithNoMars.chunked(3).map { chunk -> chunk.filter { line -> line != "" } }
             if (missionDetails.trim().isEmpty() || missionChunks.isEmpty()) {
                 throw BadConfigurationException(
