@@ -40,8 +40,10 @@ print(log)
  */
 ```
 
+For `lost` robots, the last known position is reported.
+
 The `Earth.expedition` method returns a `Log` object which can be used to interpret the mission details programmatically.
-The `toString()` method of `Log` is used to format the output for printing.
+The `toString()` method of `Log` is used to format the output for display.
 
 ## Contributing
 ### Pre-commit hook
