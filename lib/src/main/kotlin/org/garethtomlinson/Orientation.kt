@@ -10,7 +10,7 @@ enum class Orientation(val value: String) {
     ;
 
     fun turnLeft(): Orientation {
-        val newOrdinal = (this.ordinal + 4 - 1) % 4
+        val newOrdinal = (this.ordinal + 4 - 1) % 4 // Prevents -1 when going left from NORTH
         return entries[newOrdinal]
     }
 
