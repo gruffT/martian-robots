@@ -2,7 +2,7 @@
 ## A coding exercise by Gareth Tomlinson. 25 March 2024
 ![Static Badge](https://img.shields.io/badge/Project-Martian_Robots-pink) ![Static Badge](https://img.shields.io/badge/Kotlin-1.9.20-purple)  ![Static Badge](https://img.shields.io/badge/JDK-21-blue) ![Static Badge](https://img.shields.io/badge/Java-19-yellow) ![Static Badge](https://img.shields.io/badge/TDD-Absolutely!-green)
 
-A program to send Robots to Mars.
+An program to send Robots to Mars, written in immutable Kotlin.
 
 Author: [Gareth Tomlinson](mailto:garetht@garethtomlinson.co.uk), garetht@garethtomlinson.co.uk, +44 7957 363 603, [LinkedIn](https://www.linkedin.com/in/gareth-tomlinson/)
 
