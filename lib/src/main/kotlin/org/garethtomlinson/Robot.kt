@@ -14,10 +14,10 @@ class Robot private constructor(val location: Location, val orientation: Orienta
         orientation: Orientation,
     ): Location {
         return when (orientation) {
-            Orientation.NORTH -> Location(location.first, location.second + 1)
-            Orientation.EAST -> Location(location.first + 1, location.second)
-            Orientation.SOUTH -> Location(location.first, location.second - 1)
-            Orientation.WEST -> Location(location.first - 1, location.second)
+            Orientation.NORTH -> Location(location.x(), location.y() + 1)
+            Orientation.EAST -> Location(location.x() + 1, location.y())
+            Orientation.SOUTH -> Location(location.x(), location.y() - 1)
+            Orientation.WEST -> Location(location.x() - 1, location.y())
         }
     }
 
